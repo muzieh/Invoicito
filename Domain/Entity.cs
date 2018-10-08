@@ -4,7 +4,18 @@ namespace Domain
 {
 	public abstract class Entity
 	{
-		public int Id { get; set; }
+		public Entity()
+			:this(0)
+		{
+			
+		}
+
+		public Entity(int id)
+		{
+			this.Id = id;
+		}
+		//TODO: shouldn't be private set? would break test
+		public int Id { get; private set; }
 
 		public override bool Equals(object obj)
 		{
@@ -56,10 +67,5 @@ namespace Domain
 		{
 			return (GetType().ToString() + Id.ToString()).GetHashCode();
 		}
-	}
-
-
-	public class Invoice : Entity
-	{
 	}
 }
