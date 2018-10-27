@@ -7,5 +7,6 @@ namespace Domain
 	public interface ILedgerRepository
 	{
 		Invoice AddInvoice(Invoice invoice);
+		Invoice FindInvoiceById(string invoiceNumber);
 	}
 }

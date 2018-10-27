@@ -10,5 +10,10 @@ namespace Domain
 		{
 			throw new NotImplementedException();
 		}
+
+		public Invoice FindInvoiceById(string invoiceNumber)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

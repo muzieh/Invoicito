@@ -31,14 +31,15 @@ namespace Domain
 			return savedInvoice;
 		}
 
-		public object GetInvoiceById(int id)
+		public object GetInvoiceById(Guid id)
 		{
 			return invoices.FirstOrDefault(i => i.Id == id);
 		}
 
 		public Invoice FindByInvoiceNumber(string invoiceNumber)
 		{
-			return invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
+			return this.ledgerRepository.FindInvoiceById(invoiceNumber);
+			//return invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
 		}
 	}
 }
