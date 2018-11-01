@@ -1,11 +1,10 @@
-﻿using Raven.Client.Documents;
+﻿using Domain;
+using Raven.Client.Documents;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Domain
+namespace Database
 {
-	public class LedgerRepository : Repository<Ledger>, ILedgerRepository
+	public class LedgerRepository : ILedgerRepository
 	{
 		private readonly IDocumentStore store;
 
