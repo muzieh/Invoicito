@@ -10,18 +10,6 @@ namespace DomainTests
 {
 	public class LedgerTests
 	{
-		[Fact]
-		public void When_AddInvoice_Then_IdShouldntBeEmptyGuid()
-		{
-			var ledgerRepositoryMock = new Mock<ILedgerRepository>();
-			var invoice = new Invoice();
-			ledgerRepositoryMock.Setup(lr => lr.AddInvoice(invoice)).Returns(invoice);
-			var ledger = new Ledger(ledgerRepositoryMock.Object);
-
-			var savedInvoice = ledger.AddInvoice(invoice);
-
-			savedInvoice.Id.Should().NotBe(Guid.Empty);
-		}
 
 		[Fact]
 		public void When_AddInvoice_Then_ItShouldBeAddedToLedger()
@@ -54,7 +42,7 @@ namespace DomainTests
 		public void When_AddInvoice_Then_InvoiceStoredInPersistanceLayer()
 		{
 			var ledgerRepositoryMoq = new Mock<ILedgerRepository>();
-			var id = Guid.NewGuid();
+			var id = "invoice/5-A";
 			var invoice = new Invoice(id)
 			{
 				InvoiceNumber = "abc/2018"
@@ -64,7 +52,15 @@ namespace DomainTests
 			var returnedInvoice = ledger.AddInvoice(invoice);
 			returnedInvoice.Id.Should().Be(id);
 			ledgerRepositoryMoq.VerifyAll();
+		}
 
+		[Fact]
+		public void When_SearchForInvoiceById_Should_CallRepository()
+		{
+			var ledgerRepositoryMoq = new Mock<ILedgerRepository>();
+			var ledger = new Ledger(ledgerRepositoryMoq.Object);
+			ledger.GetInvoiceById("abcd");
+			ledgerRepositoryMoq.Verify(x => x.FindInvoiceById("abcd"));
 		}
 	}
 }

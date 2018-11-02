@@ -1,0 +1,12 @@
+﻿1>------ Rebuild All started: Project: Domain, Configuration: Debug Any CPU ------
+2>------ Rebuild All started: Project: WebApp, Configuration: Debug Any CPU ------
+1>Domain -> C:\Users\muzieh\source\repos\Invoicito\Domain\bin\Debug\netcoreapp2.1\Domain.dll
+3>------ Rebuild All started: Project: DomainTests, Configuration: Debug Any CPU ------
+4>------ Rebuild All started: Project: DomainIntegrationTests, Configuration: Debug Any CPU ------
+2>C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3101: Could not write state file "obj\Debug\netcoreapp2.1\WebApp.csprojAssemblyReference.cache". The process cannot access the file 'C:\Users\muzieh\source\repos\Invoicito\WebApp\obj\Debug\netcoreapp2.1\WebApp.csprojAssemblyReference.cache' because it is being used by another process.
+3>DomainTests -> C:\Users\muzieh\source\repos\Invoicito\DomainTests\bin\Debug\netcoreapp2.1\DomainTests.dll
+4>DomainIntegrationTests -> C:\Users\muzieh\source\repos\Invoicito\DomainIntegrationTests\bin\Debug\netcoreapp2.1\DomainIntegrationTests.dll
+2>WebApp -> C:\Users\muzieh\source\repos\Invoicito\WebApp\bin\Debug\netcoreapp2.1\WebApp.dll
+2>WebApp -> C:\Users\muzieh\source\repos\Invoicito\WebApp\bin\Debug\netcoreapp2.1\WebApp.Views.dll
+2>v9.4.0
+2>Restoring dependencies using 'npm'. This may take several minutes...

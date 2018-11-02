@@ -31,9 +31,9 @@ namespace Domain
 			return savedInvoice;
 		}
 
-		public object GetInvoiceById(Guid id)
+		public Invoice GetInvoiceById(string id)
 		{
-			return invoices.FirstOrDefault(i => i.Id == id);
+			return this.ledgerRepository.FindInvoiceById(id);
 		}
 
 		public Invoice FindByInvoiceNumber(string invoiceNumber)

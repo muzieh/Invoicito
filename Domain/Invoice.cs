@@ -15,7 +15,7 @@ namespace Domain
 		{
 
 		}
-		public Invoice(Guid id):base(id)
+		public Invoice(string id):base(id)
 		{
 
 		}

@@ -5,16 +5,16 @@ namespace Domain
 	public abstract class Entity
 	{
 		public Entity()
-			:this(Guid.NewGuid())
+			:this(null)
 		{
 		}
 
-		public Entity(Guid id)
+		public Entity(string id)
 		{
 			this.Id = id;
 		}
 		//TODO: shouldn't be private set? would break test
-		public Guid Id { get; private set; }
+		public string Id { get; private set; }
 
 		public override bool Equals(object obj)
 		{
@@ -33,7 +33,7 @@ namespace Domain
 				return false;
 			}
 
-			if(this.Id == Guid.Empty || other.Id == Guid.Empty)
+			if(this.Id == String.Empty || other.Id == String.Empty)
 			{
 				return false;
 			}

@@ -1,4 +1,5 @@
 ﻿using Domain;
+using FluentAssertions;
 using Raven.Client.Documents;
 using System;
 using Xunit;
@@ -14,7 +15,7 @@ namespace DomainIntegrationTests
 		{
 			store = new DocumentStore()
 			{
-				Urls = new[] { "http://192.168.43.30:8080" },
+				Urls = new[] { "http://192.168.1.113:8080" },
 				Database = "Invoicito"
 			}.Initialize();
 			this.ledgerRepository = new LedgerRepository(store);
@@ -34,7 +35,21 @@ namespace DomainIntegrationTests
 			};
 			var ledger = new Ledger(ledgerRepository);
 			var savedInvoice = ledger.AddInvoice(invoice);
+			savedInvoice.Id.Should().NotBe(String.Empty);
+		}
 
+
+		[Fact]
+		public void When_AddInvoice_ShouldBeAbleToSearchForit()
+		{
+			var invoice = new Invoice()
+			{
+				InvoiceNumber = "abcdef"
+			};
+			var ledger = new Ledger(ledgerRepository);
+			var savedInvoice = ledger.AddInvoice(invoice);
+			var searchedInvoice = ledger.GetInvoiceById(savedInvoice.Id);
+			searchedInvoice.Id.Should().Be(savedInvoice.Id);
 
 		}
 	}

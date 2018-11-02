@@ -24,9 +24,12 @@ namespace Domain
 			}
 		}
 
-		public Invoice FindInvoiceById(string invoiceNumber)
+		public Invoice FindInvoiceById(string id)
 		{
-			throw new NotImplementedException();
+			using(var session = store.OpenSession())
+			{
+				return session.Load<Invoice>(id);
+			}
 		}
 	}
 }
