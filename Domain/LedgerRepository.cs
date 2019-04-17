@@ -1,7 +1,4 @@
-﻿using Raven.Client.Documents;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace Domain
 {
@@ -31,5 +28,18 @@ namespace Domain
 				return session.Load<Invoice>(id);
 			}
 		}
+	}
+
+	public interface IDocumentStore : IDisposable
+	{
+		ISession OpenSession();
+		void Dispose();
+	}
+
+	public interface ISession : IDisposable
+	{
+		void Store(Invoice invoice);
+		void SaveChanges();
+		T Load<T>(string id);
 	}
 }

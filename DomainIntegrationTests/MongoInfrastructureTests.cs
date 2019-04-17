@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-
-using MongoDB;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using Xunit;
+using FluentAssertions;
 
 namespace DomainIntegrationTests
 {
@@ -18,12 +17,24 @@ namespace DomainIntegrationTests
 			var client = new MongoClient("mongodb://localhost:27017");
 			var db = client.GetDatabase("documents");
 			var collection = db.GetCollection<Developer>("developers");
+			var newId = ObjectId.GenerateNewId();
 			collection.InsertOne(new Developer()
 			{
-				ID = ObjectId.GenerateNewId(),
-				Name = "test"
+				ID = newId,
+				Name = "test",
+				CompanyName = "Oversoft Ltd",
+				KnowledgeBase = new List<Knowledge>()
+				{
+					new Knowledge() { Language = "C#", Rating = 3, Technology = ".NET"},
+					new Knowledge() { Language = "JavaScript", Rating = 5, Technology = "Front-end"}
+				}
 			});
 			
+			var developer = collection.FindSync(FilterDefinition<Developer>.Empty).First();
+			developer.Should().NotBeNull();
+			developer.KnowledgeBase.Should().HaveCount(2);
+
+
 		}
 
 

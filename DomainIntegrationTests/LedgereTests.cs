@@ -1,6 +1,5 @@
 ﻿using Domain;
 using FluentAssertions;
-using Raven.Client.Documents;
 using System;
 using Xunit;
 
@@ -9,16 +8,11 @@ namespace DomainIntegrationTests
 	public class LedgereTests : IDisposable
 	{
 		private ILedgerRepository ledgerRepository;
-		private IDocumentStore store;
+		private DocumentStore store;
 
 		public LedgereTests()
 		{
-			store = new DocumentStore()
-			{
-				//Urls = new[] { "http://192.168.1.113:8080" },
-				Urls = new[] { "http://10.0.75.1:8080" },
-				Database = "Invoicito"
-			}.Initialize();
+			store = new DocumentStore();
 			this.ledgerRepository = new LedgerRepository(store);
 		}
 
