@@ -7,7 +7,7 @@ namespace DomainIntegrationTests
     {
         public ISession OpenSession()
         {
-            A
+            throw new NotImplementedException();
         }
 
         public void Dispose()
