@@ -3,6 +3,7 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MongoDB.Bson;
 using Xunit;
 using Moq;
 
@@ -28,7 +29,7 @@ namespace DomainTests
 		{
 			var ledgerRepositoryMock = new Mock<ILedgerRepository>();
 			var invoiceNumber = "abc/2018";
-			ledgerRepositoryMock.Setup(x => x.FindInvoiceById(invoiceNumber)).Returns(new Invoice()
+			ledgerRepositoryMock.Setup(x => x.FindInvoiceByInvoiceNumber(invoiceNumber)).Returns(new Invoice()
 			{
 				InvoiceNumber = invoiceNumber
 			});
@@ -42,7 +43,7 @@ namespace DomainTests
 		public void When_AddInvoice_Then_InvoiceStoredInPersistanceLayer()
 		{
 			var ledgerRepositoryMoq = new Mock<ILedgerRepository>();
-			var id = "invoice/5-A";
+			var id = ObjectId.GenerateNewId();
 			var invoice = new Invoice(id)
 			{
 				InvoiceNumber = "abc/2018"
@@ -59,8 +60,8 @@ namespace DomainTests
 		{
 			var ledgerRepositoryMoq = new Mock<ILedgerRepository>();
 			var ledger = new Ledger(ledgerRepositoryMoq.Object);
-			ledger.GetInvoiceById("abcd");
-			ledgerRepositoryMoq.Verify(x => x.FindInvoiceById("abcd"));
+			ledger.GetInvoiceByInvoiceNumber("abcd");
+			ledgerRepositoryMoq.Verify(x => x.FindInvoiceByInvoiceNumber("abcd"));
 		}
 	}
 }

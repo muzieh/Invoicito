@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -23,6 +24,7 @@ namespace DomainIntegrationTests
 				ID = newId,
 				Name = "test",
 				CompanyName = "Oversoft Ltd",
+				Date = DateTime.Now,
 				KnowledgeBase = new List<Knowledge>()
 				{
 					new Knowledge() { Language = "C#", Rating = 3, Technology = ".NET"},
@@ -50,6 +52,8 @@ namespace DomainIntegrationTests
 		public string CompanyName { get; set; }
 		[BsonElement("knowledge_base")]
 		public List<Knowledge> KnowledgeBase { get; set; }
+		[BsonElement("date_created")]
+		public DateTime Date { get; set; }
 	}
  
 	public class Knowledge

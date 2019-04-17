@@ -1,6 +1,8 @@
 ﻿using Domain;
 using FluentAssertions;
 using System;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Xunit;
 
 namespace DomainIntegrationTests
@@ -8,17 +10,21 @@ namespace DomainIntegrationTests
 	public class LedgereTests : IDisposable
 	{
 		private ILedgerRepository ledgerRepository;
-		private DocumentStore store;
+		private IMongoClient client;
+		private IMongoDatabase db;
 
 		public LedgereTests()
 		{
-			store = new DocumentStore();
-			this.ledgerRepository = new LedgerRepository(store);
+			var connectionString = "mongodb://localhost:27017";
+			var databaseName = "invoicito_test";
+			
+			this.client = new MongoClient(connectionString);
+			this.db = this.client.GetDatabase(databaseName);
+			this.ledgerRepository = new LedgerRepository(this.db);
 		}
 
 		public void Dispose()
 		{
-			this.store.Dispose();
 		}
 
 		[Fact]
@@ -30,7 +36,7 @@ namespace DomainIntegrationTests
 			};
 			var ledger = new Ledger(ledgerRepository);
 			var savedInvoice = ledger.AddInvoice(invoice);
-			savedInvoice.Id.Should().NotBe(String.Empty);
+			savedInvoice.Id.Should().NotBe(ObjectId.Empty);
 		}
 
 

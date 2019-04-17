@@ -1,20 +1,23 @@
 ﻿using System;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain
 {
 	public abstract class Entity
 	{
 		public Entity()
-			:this(null)
+			:this(ObjectId.GenerateNewId())
 		{
 		}
 
-		public Entity(string id)
+		public Entity(ObjectId id)
 		{
 			this.Id = id;
 		}
 		//TODO: shouldn't be private set? would break test
-		public string Id { get; private set; }
+		[BsonId]
+		public ObjectId Id { get; private set; }
 
 		public override bool Equals(object obj)
 		{
@@ -33,7 +36,7 @@ namespace Domain
 				return false;
 			}
 
-			if(this.Id == String.Empty || other.Id == String.Empty)
+			if(this.Id == ObjectId.Empty|| other.Id == ObjectId.Empty)
 			{
 				return false;
 			}

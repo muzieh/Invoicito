@@ -1,5 +1,6 @@
 using Domain;
 using System;
+using MongoDB.Bson;
 using Xunit;
 
 namespace DomainTests
@@ -15,8 +16,8 @@ namespace DomainTests
 		[Fact]
 		public void When_Entity_Compared_To_DifferentTypeEntity_Then_False()
 		{
-			var aId = "invoice/1-A";
-			var bId = "invoice/2-A";
+			var aId = ObjectId.GenerateNewId();
+			var bId = ObjectId.GenerateNewId();
 			var a = new TestEntityA(aId);
 			var b = new TestEntityB(bId);
 			Assert.False(a == b);
@@ -25,8 +26,8 @@ namespace DomainTests
 		[Fact]
 		public void When_Entity_Compared_To_SameTypeEntity_DifferentId_Then_False()
 		{
-			var aId = "invoice/1-A";
-			var bId = "invoice/2-A";
+			var aId = ObjectId.GenerateNewId();
+			var bId = ObjectId.GenerateNewId();
 			var a1 = new TestEntityA(aId);
 			var a2 = new TestEntityA(bId);
 			Assert.False(a1 == a2);
@@ -35,7 +36,7 @@ namespace DomainTests
 		[Fact]
 		public void When_Entity_Compared_To_SameTypeEntity_SameId_Then_True()
 		{
-			var id = "invoice/3-A";
+			ObjectId id = ObjectId.GenerateNewId();
 			var a1 = new TestEntityA(id);
 			var a2 = new TestEntityA(id);
 			Assert.True(a1 == a2);
@@ -49,7 +50,7 @@ namespace DomainTests
 
 		}
 
-		public TestEntityA(string id)
+		public TestEntityA(ObjectId id)
 			:base(id)
 		{
 
@@ -58,7 +59,7 @@ namespace DomainTests
 	}
 	public class TestEntityB : Entity
 	{
-		public TestEntityB(string id)
+		public TestEntityB(ObjectId id)
 			:base(id)
 		{
 

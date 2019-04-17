@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MongoDB.Bson;
 
 namespace Domain
 {
@@ -31,14 +32,19 @@ namespace Domain
 			return savedInvoice;
 		}
 
-		public Invoice GetInvoiceById(string id)
+		public Invoice GetInvoiceById(ObjectId id)
 		{
 			return this.ledgerRepository.FindInvoiceById(id);
 		}
 
+		public Invoice GetInvoiceByInvoiceNumber(string invoiceNumber)
+		{
+			return this.ledgerRepository.FindInvoiceByInvoiceNumber(invoiceNumber);
+		}
+
 		public Invoice FindByInvoiceNumber(string invoiceNumber)
 		{
-			return this.ledgerRepository.FindInvoiceById(invoiceNumber);
+			return this.ledgerRepository.FindInvoiceByInvoiceNumber(invoiceNumber);
 			//return invoices.FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
 		}
 	}

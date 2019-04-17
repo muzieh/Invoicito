@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 
 namespace Domain
 {
@@ -15,7 +16,7 @@ namespace Domain
 		{
 
 		}
-		public Invoice(string id):base(id)
+		public Invoice(ObjectId id):base(id)
 		{
 
 		}
